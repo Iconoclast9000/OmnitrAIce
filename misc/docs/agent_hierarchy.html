@@ -1,266 +1,4 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>OmnitrAIce Agent Hierarchy</title>
-    <style>
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-color: #f5f5f5;
-            color: #333;
-            margin: 0;
-            padding: 20px;
-        }
-        
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            background-color: white;
-            padding: 30px;
-            border-radius: 10px;
-            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
-        }
-        
-        h1 {
-            color: #333;
-            text-align: center;
-            margin-bottom: 30px;
-            border-bottom: 2px solid #ddd;
-            padding-bottom: 15px;
-        }
-        
-        .description {
-            background-color: #f8f9fa;
-            padding: 20px;
-            border-radius: 8px;
-            margin-bottom: 30px;
-            border-left: 4px solid #2196F3;
-            font-size: 16px;
-            line-height: 1.6;
-        }
-        
-        .agent-hierarchy {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            margin-top: 30px;
-        }
-        
-        .hierarchy-level {
-            display: flex;
-            justify-content: center;
-            width: 100%;
-            margin-bottom: 30px;
-        }
-        
-        .agent-group {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-            gap: 20px;
-        }
-        
-        .agent-card {
-            background-color: white;
-            border-radius: 8px;
-            padding: 20px;
-            width: 280px;
-            min-height: 200px;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-            transition: transform 0.3s, box-shadow 0.3s;
-            display: flex;
-            flex-direction: column;
-        }
-        
-        .agent-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1);
-        }
-        
-        .agent-card.omni {
-            background-color: #2196F3;
-            color: white;
-        }
-        
-        .agent-card.executive {
-            background-color: #8BC34A;
-            color: white;
-        }
-        
-        .agent-card.technical {
-            background-color: #FF9800;
-            color: white;
-        }
-        
-        .agent-card.implementation {
-            background-color: #9C27B0;
-            color: white;
-        }
-        
-        .agent-title {
-            font-size: 22px;
-            font-weight: bold;
-            margin-bottom: 15px;
-            text-align: center;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.3);
-            padding-bottom: 10px;
-        }
-        
-        .agent-description {
-            font-size: 14px;
-            flex-grow: 1;
-        }
-        
-        .agent-responsibilities {
-            margin-top: 15px;
-            font-size: 13px;
-        }
-        
-        .agent-responsibilities ul {
-            padding-left: 20px;
-            margin: 10px 0 0 0;
-        }
-        
-        .connections {
-            position: relative;
-            width: 100%;
-            height: 40px;
-        }
-        
-        .connection-line {
-            position: absolute;
-            background-color: #ddd;
-            width: 2px;
-            left: 50%;
-            transform: translateX(-50%);
-            top: 0;
-            height: 100%;
-        }
-        
-        .deepseek-info {
-            background-color: #e3f2fd;
-            padding: 20px;
-            border-radius: 8px;
-            margin: 30px 0;
-            border-left: 4px solid #1565C0;
-        }
-        
-        .footer {
-            text-align: center;
-            margin-top: 40px;
-            color: #777;
-            font-size: 14px;
-            border-top: 1px solid #ddd;
-            padding-top: 20px;
-        }
-    </style>
-</head>
-<body>
-    <div class="container">
-        <h1>OmnitrAIce Agent Hierarchy</h1>
-        
-        <div class="description">
-            <p>OmnitrAIce is a multi-agent system that leverages the DeepSeek LLM (deepseek-r1:1.5b) to generate complete software projects through coordinated specialized AI agents. Each agent has specific responsibilities and works together to create comprehensive project specifications, architecture, and implementation plans.</p>
-        </div>
-        
-        <div class="deepseek-info">
-            <h3>Why DeepSeek?</h3>
-            <p>OmnitrAIce was developed as a brainchild project utilizing the DeepSeek model's unique reasoning capabilities. The DeepSeek-r1:1.5b model offers exceptional performance despite its compact size, making it ideal for local development and customization. This approach enables developers to build upon the framework without requiring massive computational resources.</p>
-            <p>The OmnitrAIce architecture is designed to maximize the strengths of the DeepSeek model by channeling its capabilities through specialized agents, each focused on a specific aspect of software development. This division of responsibilities ensures that the model can produce high-quality outputs for each development phase.</p>
-        </div>
-        
-        <div class="agent-hierarchy">
-            <!-- OmniAgent Level -->
-            <div class="hierarchy-level">
-                <div class="agent-card omni">
-                    <div class="agent-title">OmniAgent</div>
-                    <div class="agent-description">
-                        Central coordinator that manages all specialized agents and streamlines the project generation workflow.
-                    </div>
-                    <div class="agent-responsibilities">
-                        <strong>Responsibilities:</strong>
-                        <ul>
-                            <li>Agent coordination</li>
-                            <li>Workflow management</li>
-                            <li>Context sharing</li>
-                            <li>Output integration</li>
-                            <li>Error handling</li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-            
-            <!-- Connection Line -->
-            <div class="connections">
-                <div class="connection-line"></div>
-            </div>
-            
-            <!-- Executive Agents Level -->
-            <div class="hierarchy-level">
-                <div class="agent-group">
-                    <div class="agent-card executive">
-                        <div class="agent-title">CEO Agent</div>
-                        <div class="agent-description">
-                            Responsible for high-level project vision and strategic planning.
-                        </div>
-                        <div class="agent-responsibilities">
-                            <strong>Responsibilities:</strong>
-                            <ul>
-                                <li>Project vision analysis</li>
-                                <li>Resource management</li>
-                                <li>Timeline planning</li>
-                                <li>Risk assessment</li>
-                                <li>Strategic decisions</li>
-                            </ul>
-                        </div>
-                    </div>
-                    
-                    <div class="agent-card executive">
-                        <div class="agent-title">CTO Agent</div>
-                        <div class="agent-description">
-                            Handles technical strategy and makes high-level technology decisions.
-                        </div>
-                        <div class="agent-responsibilities">
-                            <strong>Responsibilities:</strong>
-                            <ul>
-                                <li>Technical strategy</li>
-                                <li>Architecture planning</li>
-                                <li>Technology selection</li>
-                                <li>Security planning</li>
-                                <li>Technical roadmap</li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            
-            <!-- Connection Line -->
-            <div class="connections">
-                <div class="connection-line"></div>
-            </div>
-            
-            <!-- Technical Agents Level -->
-            <div class="hierarchy-level">
-                <div class="agent-group">
-                    <div class="agent-card technical">
-                        <div class="agent-title">Architect Agent</div>
-                        <div class="agent-description">
-                            Designs system architecture and component interactions.
-                        </div>
-                        <div class="agent-responsibilities">
-                            <strong>Responsibilities:</strong>
-                            <ul>
-                                <li>System design</li>
-                                <li>Pattern selection</li>
-                                <li>Component planning</li>
-                                <li>Interface definition</li>
-                                <li>Architecture validation</li>
-                            </ul>
-                        </div>
-                    </div>
-                    
-                    <div class="agent-card technical">
+                        <div class="planned-badge">PLANNED</div>
                         <div class="agent-title">DBA Agent</div>
                         <div class="agent-description">
                             Manages database design and data modeling.
@@ -277,7 +15,8 @@
                         </div>
                     </div>
                     
-                    <div class="agent-card technical">
+                    <div class="agent-card technical planned">
+                        <div class="planned-badge">PLANNED</div>
                         <div class="agent-title">DevOps Agent</div>
                         <div class="agent-description">
                             Handles infrastructure and deployment strategies.
@@ -321,7 +60,8 @@
                         </div>
                     </div>
                     
-                    <div class="agent-card implementation">
+                    <div class="agent-card implementation planned">
+                        <div class="planned-badge">PLANNED</div>
                         <div class="agent-title">Filesystem Agent</div>
                         <div class="agent-description">
                             Manages file operations and project structure.
@@ -341,9 +81,16 @@
             </div>
         </div>
         
+        <div class="implementation-status">
+            <h3>Future Development</h3>
+            <p>The OmnitrAIce roadmap includes implementing all the planned agents shown above to create a comprehensive multi-agent system. Each agent will focus on a specialized aspect of software development, collectively generating complete and detailed project outputs.</p>
+            <p>We welcome contributions from the developer community to help implement these planned agents and enhance the system's capabilities.</p>
+        </div>
+        
         <div class="footer">
             <p>OmnitrAIce - A multi-agent system for streamlined project generation using the DeepSeek LLM</p>
             <p>Created as a flexible framework for developers to build upon and customize</p>
+            <p>Last updated: February 28, 2025</p>
         </div>
     </div>
 </body>
