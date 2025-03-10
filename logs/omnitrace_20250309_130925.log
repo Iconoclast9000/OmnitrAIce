@@ -1,0 +1,18 @@
+2025-03-09 13:09:25,746 - OmnitrAIce - INFO - Starting OmnitrAIce Unified System
+2025-03-09 13:09:25,872 - core.omniagent - INFO - Loaded custom template for architect from config\templates\architect_template.json
+2025-03-09 13:09:25,872 - core.omniagent - INFO - Loaded custom template for ceo from config\templates\ceo_template.json
+2025-03-09 13:09:25,873 - core.omniagent - INFO - Loaded custom template for cto from config\templates\cto_template.json
+2025-03-09 13:09:25,874 - core.omniagent - INFO - Loaded custom template for developer from config\templates\developer_template.json
+2025-03-09 13:09:25,876 - core.omniagent - INFO - Loaded custom template for filesystem from config\templates\filesystem_template.json
+2025-03-09 13:09:25,876 - core.revolutionary_omniagent - INFO - Initializing UnifiedOmniAgent with model: deepseek-r1:1.5b
+2025-03-09 13:09:25,877 - core.revolutionary_omniagent - INFO - UnifiedOmniAgent initialized (version 1.0.0)
+2025-03-09 13:09:25,877 - core.revolutionary_omniagent - INFO - Revolution level set to: maximum
+2025-03-09 13:09:25,878 - agents.cto_agent - INFO - CTO revolution level set to: maximum
+2025-03-09 13:09:25,878 - core.revolutionary_omniagent - INFO - Constraint elimination set to: aggressive
+2025-03-09 13:09:25,878 - agents.cto_agent - INFO - Constraint elimination level set to: aggressive
+2025-03-09 13:09:25,879 - core.revolutionary_omniagent - INFO - Code generation disabled
+2025-03-09 13:09:25,879 - OmnitrAIce - INFO - Launching web interface
+2025-03-09 13:09:27,966 - OmnitrAIce - ERROR - Fatal error: 'OmnitrAIceWebUI' object has no attribute 'output_status'
+2025-03-09 13:09:28,151 - httpx - INFO - HTTP Request: GET https://api.gradio.app/gradio-messaging/en "HTTP/1.1 200 OK"
+2025-03-09 13:09:28,966 - httpx - INFO - HTTP Request: GET https://checkip.amazonaws.com/ "HTTP/1.1 200 "
+2025-03-09 13:09:29,796 - httpx - INFO - HTTP Request: GET https://api.gradio.app/pkg-version "HTTP/1.1 200 OK"

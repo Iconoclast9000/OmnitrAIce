@@ -1,0 +1,48 @@
+# OmnitrAIce Default Configuration
+
+# Model configuration
+model:
+  name: "deepseek-r1:1.5b"
+  parameters:
+    temperature: 0.7
+
+# Revolutionary settings
+revolution_level: "maximum"  # moderate, high, maximum
+constraint_elimination: "aggressive"  # cautious, moderate, aggressive
+
+# Agent configuration
+agents:
+  ceo:
+    focus_areas:
+      - "First-principles problem analysis"
+      - "Revolutionary vision creation"
+      - "10x improvement identification"
+      - "Constraint elimination strategy"
+  cto:
+    focus_areas:
+      - "First-principles technical analysis"
+      - "Revolutionary technology selection"
+      - "Exponential infrastructure planning"
+      - "Disruptive technical roadmap"
+  architect:
+    focus_areas:
+      - "First-principles architectural analysis"
+      - "Revolutionary component design"
+      - "Exponential scaling architecture"
+      - "Novel interaction patterns"
+  developer:
+    focus_areas:
+      - "First-principles code design"
+      - "Revolutionary implementation patterns"
+      - "Extreme simplification"
+      - "Future-proof flexibility"
+
+# Generation options
+generation:
+  enable_code_gen: true
+  enable_file_structure: true
+  
+# Output options
+output:
+  format: "markdown"
+  include_metrics: true

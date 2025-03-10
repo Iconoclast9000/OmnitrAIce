@@ -1,0 +1,87 @@
+#!/usr/bin/env python3
+"""
+OmnitrAIce Web UI Launcher v1.1.0 - Legacy compatibility mode
+"""
+
+import sys
+import os
+import logging
+from datetime import datetime
+
+# Add project root to path
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+
+# Configure logging
+def setup_logging():
+    """Set up logging for the Web UI Launcher"""
+    logger = logging.getLogger("WebUILauncher")
+    logger.setLevel(logging.INFO)
+    
+    # Ensure logs directory exists
+    os.makedirs("logs", exist_ok=True)
+    
+    # Create handlers
+    file_handler = logging.FileHandler(
+        f"logs/web_ui_launcher_{datetime.now().strftime('%Y%m%d_%H%M%S')}.log"
+    )
+    console_handler = logging.StreamHandler()
+    
+    # Create formatter
+    formatter = logging.Formatter("%(asctime)s - %(name)s - %(levelname)s - %(message)s")
+    file_handler.setFormatter(formatter)
+    console_handler.setFormatter(formatter)
+    
+    # Add handlers to logger
+    logger.addHandler(file_handler)
+    logger.addHandler(console_handler)
+    
+    return logger
+
+def main():
+    """
+    Launch the OmnitrAIce Web Interface with compatibility handling
+    """
+    logger = setup_logging()
+    logger.info("Starting OmnitrAIce Web UI Launcher v1.1.0")
+    
+    try:
+        # First try the new structure
+        logger.info("Attempting to load from new modular structure...")
+        try:
+            from omnitrace.core.enhanced_omniagent import EnhancedOmniAgent
+            from omnitrace.ui.agent_customization_ui import AgentCustomizationUI
+            logger.info("Successfully loaded from new modular structure")
+        except ImportError:
+            # Fall back to the original structure
+            logger.info("Falling back to original structure...")
+            from enhanced_omniagent import EnhancedOmniAgent, AgentCustomizationUI
+            logger.info("Successfully loaded from original structure")
+            
+        # Initialize the agent and UI
+        agent = EnhancedOmniAgent()
+        ui = AgentCustomizationUI(agent)
+        
+        # Launch the UI
+        logger.info("Launching Agent Customization UI")
+        ui.launch()
+        
+    except Exception as e:
+        logger.error(f"Failed to launch Web UI: {str(e)}")
+        
+        # Try to fall back to the new web UI
+        logger.info("Attempting to launch new Web UI as fallback...")
+        try:
+            from omnitrace.ui.web_ui import OmnitrAIceWebUI
+            from omnitrace.core.revolutionary_omniagent import UnifiedOmniAgent
+            
+            agent = UnifiedOmniAgent()
+            ui = OmnitrAIceWebUI(agent=agent)
+            ui.launch()
+            logger.info("Successfully launched new Web UI")
+        except Exception as secondary_e:
+            logger.error(f"Failed to launch new Web UI: {str(secondary_e)}")
+            print(f"ERROR: Failed to launch Web UI. See logs for details.")
+            sys.exit(1)
+
+if __name__ == "__main__":
+    main()

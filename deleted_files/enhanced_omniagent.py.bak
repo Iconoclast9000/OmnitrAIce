@@ -1,0 +1,187 @@
+
+import asyncio
+import os
+import json
+import logging
+from typing import Dict, Any, List, Optional
+import gradio as gr
+from functools import partial
+
+from omniagent import OmniAgent
+
+class EnhancedOmniAgent(OmniAgent):
+    """Enhanced OmniAgent with customizable agent interface"""
+
+    def __init__(self, model_name: str = "deepseek-r1:1.5b"):
+        super().__init__(model_name)
+
+        # Store customized templates
+        self.custom_templates = {}
+        
+        # Load any saved custom templates
+        self._load_custom_templates()
+
+    def _load_custom_templates(self):
+        """Load saved custom templates"""
+        templates_dir = os.path.join("config", "templates")
+        if os.path.exists(templates_dir):
+            for file_name in os.listdir(templates_dir):
+                if file_name.endswith(".json"):
+                    role = file_name.split("_")[0]  
+                    file_path = os.path.join(templates_dir, file_name)
+                    try:
+                        with open(file_path, "r", encoding="utf-8") as f:
+                            template = json.load(f)
+                        self.custom_templates[role] = template
+                        self.logger.info(f"Loaded custom template for {role} from {file_path}")
+                    except Exception as e:
+                        self.logger.error(f"Failed to load custom template from {file_path}: {str(e)}")
+
+    def save_custom_template(self, role: str, template: str):
+        """Save a custom template for an agent role"""
+        templates_dir = os.path.join("config", "templates")
+        os.makedirs(templates_dir, exist_ok=True)
+
+        file_path = os.path.join(templates_dir, f"{role}_template.json")
+        try:
+            with open(file_path, "w", encoding="utf-8") as f:
+                json.dump({"template": template}, f, ensure_ascii=False, indent=2)
+            self.custom_templates[role] = template
+            return True
+        except Exception as e:
+            self.logger.error(f"Failed to save custom template for {role}: {str(e)}")
+            return False
+
+    def get_template(self, role: str) -> str:
+        """Get the current template for an agent role"""
+        if role in self.custom_templates:
+            return self.custom_templates[role]["template"]
+        return self.agent_templates.get(role, "")
+
+class AgentCustomizationUI:
+    """Gradio UI for agent customization"""
+
+    def __init__(self, agent: EnhancedOmniAgent):
+        self.agent = agent
+        self.app = None
+
+    def _get_agent_types(self) -> List[str]:
+        """Get all available agent types"""
+        return list(self.agent.agent_templates.keys())
+
+    def load_agent_template(self, agent_type: str) -> str:
+        """Load the template for the selected agent type"""
+        template = self.agent.get_template(agent_type)
+        if isinstance(template, dict):
+            return template.get("template", "")
+        return template
+
+    def save_agent_template(self, agent_type: str, template: str) -> str:
+        """Save the template for the selected agent type"""
+        success = self.agent.save_custom_template(agent_type, template)
+        return "Template saved successfully" if success else "Failed to save template"
+    
+    def create_project_wrapped(self, name: str, desc: str) -> Dict[str, Any]:
+        """Wrapper for create_project to handle errors"""
+        try:
+            result = asyncio.run(self.agent.create_project(name, desc))
+            return result
+        except Exception as e:
+            return {"status": "error", "error": str(e)}
+
+    def create_ui(self):
+        """Create and launch the Gradio UI"""
+        with gr.Blocks(title="OmnitrAIce Agent Customization") as app:
+            gr.Markdown("# OmnitrAIce Agent Customization")
+
+            with gr.Row():
+                with gr.Column(scale=1):
+                    agent_types = self._get_agent_types()
+                    agent_type = gr.Dropdown(
+                        choices=agent_types,
+                        label="Select Agent Type",
+                        value=agent_types[0] if agent_types else None
+                    )
+                    template_editor = gr.Textbox(
+                        label="Agent Template", 
+                        placeholder="Agent template will appear here...", 
+                        lines=15
+                    )
+                    save_template_btn = gr.Button("Save Template")
+                    save_result = gr.Textbox(label="Save Result")
+
+                    # Load template when agent type changes
+                    agent_type.change(
+                        fn=self.load_agent_template, 
+                        inputs=[agent_type], 
+                        outputs=[template_editor]
+                    )
+
+                    # Save template when button is clicked
+                    save_template_btn.click(
+                        fn=self.save_agent_template,
+                        inputs=[agent_type, template_editor],
+                        outputs=[save_result]
+                    )
+
+                with gr.Column(scale=1):
+                    gr.Markdown("## Project Creation")
+                    project_name = gr.Textbox(label="Project Name")
+                    project_desc = gr.Textbox(label="Project Description", lines=5) 
+                    create_btn = gr.Button("Create Project")
+                    create_result = gr.JSON(label="Creation Result")
+
+                    # Create project when button is clicked
+                    create_btn.click(
+                        fn=self.create_project_wrapped,
+                        inputs=[project_name, project_desc],
+                        outputs=[create_result]
+                    )
+            
+            gr.Markdown("## Generated Projects")
+            
+            # List all generated projects
+            def list_projects():
+                projects_dir = os.path.join(os.getcwd(), "projects")
+                if not os.path.exists(projects_dir):
+                    return "No projects generated yet."
+
+                projects = os.listdir(projects_dir)
+                if not projects:
+                    return "No projects generated yet."
+                
+                result = "### Generated Projects\n\n"
+                for project in projects:
+                    result += f"- {project}\n"
+                return result
+
+            projects_list = gr.Markdown(list_projects())
+            refresh_btn = gr.Button("Refresh Projects List")
+            refresh_btn.click(fn=list_projects, inputs=[], outputs=[projects_list])
+
+            self.app = app
+
+    def launch(self, **kwargs):
+        """Launch the UI"""
+        if not self.app:
+            self.create_ui()
+        self.app.launch(**kwargs)
+
+
+def main():
+    """Main entry point for the enhanced OmnitrAIce system"""
+    try:
+        # Initialize the enhanced agent
+        agent = EnhancedOmniAgent()
+
+        # Create and launch the UI
+        ui = AgentCustomizationUI(agent)
+        ui.launch(share=False)
+
+    except Exception as e:
+        print(f"Error: {str(e)}")
+        import traceback
+        traceback.print_exc()
+
+if __name__ == "__main__":
+    main()

@@ -1,0 +1,47 @@
+2025-03-10 05:30:44,869 - OmnitrAIce - INFO - Starting OmnitrAIce Unified System
+2025-03-10 05:30:45,087 - core.omniagent - INFO - Loaded custom template for architect from config\templates\architect_template.json
+2025-03-10 05:30:45,088 - core.omniagent - INFO - Loaded custom template for ceo from config\templates\ceo_template.json
+2025-03-10 05:30:45,089 - core.omniagent - INFO - Loaded custom template for cto from config\templates\cto_template.json
+2025-03-10 05:30:45,089 - core.omniagent - INFO - Loaded custom template for developer from config\templates\developer_template.json
+2025-03-10 05:30:45,091 - core.omniagent - INFO - Loaded custom template for filesystem from config\templates\filesystem_template.json
+2025-03-10 05:30:45,091 - core.revolutionary_omniagent - INFO - Initializing UnifiedOmniAgent with model: deepseek-r1:1.5b
+2025-03-10 05:30:45,092 - core.revolutionary_omniagent - INFO - UnifiedOmniAgent initialized (version 1.1.0)
+2025-03-10 05:30:45,093 - core.revolutionary_omniagent - INFO - Revolution level set to: maximum
+2025-03-10 05:30:45,093 - agents.cto_agent - INFO - CTO revolution level set to: maximum
+2025-03-10 05:30:45,093 - core.revolutionary_omniagent - INFO - Constraint elimination set to: aggressive
+2025-03-10 05:30:45,093 - agents.cto_agent - INFO - Constraint elimination level set to: aggressive
+2025-03-10 05:30:45,094 - core.revolutionary_omniagent - INFO - Code generation disabled
+2025-03-10 05:30:45,094 - OmnitrAIce - INFO - Launching web interface
+2025-03-10 05:30:47,830 - httpx - INFO - HTTP Request: GET https://api.gradio.app/gradio-messaging/en "HTTP/1.1 200 OK"
+2025-03-10 05:30:48,770 - OmnitrAIce - INFO - Launching OmnitrAIceWebUI...
+2025-03-10 05:30:49,694 - httpx - INFO - HTTP Request: GET http://127.0.0.1:7860/startup-events "HTTP/1.1 200 OK"
+2025-03-10 05:30:49,721 - httpx - INFO - HTTP Request: HEAD http://127.0.0.1:7860/ "HTTP/1.1 200 OK"
+2025-03-10 05:30:49,799 - httpx - INFO - HTTP Request: GET https://checkip.amazonaws.com/ "HTTP/1.1 200 "
+2025-03-10 05:30:50,053 - httpx - INFO - HTTP Request: GET https://api.gradio.app/pkg-version "HTTP/1.1 200 OK"
+2025-03-10 05:30:50,663 - httpx - INFO - HTTP Request: GET https://checkip.amazonaws.com/ "HTTP/1.1 200 "
+2025-03-11 00:06:38,266 - OmnitrAIceWebUI - INFO - Creating revolutionary project: Solitaire
+2025-03-11 00:06:38,272 - core.revolutionary_omniagent - INFO - Creating revolutionary project: Solitaire
+2025-03-11 00:06:38,272 - core.revolutionary_omniagent - INFO - Using revolution level: maximum
+2025-03-11 00:06:38,272 - core.revolutionary_omniagent - INFO - Using constraint elimination: aggressive
+2025-03-11 00:06:38,273 - utils.first_principles - INFO - Applying first-principles thinking to: Create a self learning solitaire game
+2025-03-11 00:06:38,273 - utils.first_principles - INFO - Breaking down problem to fundamentals: Create a self learning solitaire game
+2025-03-11 00:06:38,273 - utils.first_principles - INFO - Identifying constraints for: Create a self learning solitaire game
+2025-03-11 00:06:38,274 - utils.first_principles - INFO - Generating 10x improvement opportunities for: Create a self learning solitaire game
+2025-03-11 00:06:38,274 - utils.first_principles - INFO - Applying revolutionary approach at level: maximum
+2025-03-11 00:06:38,275 - core.revolutionary_omniagent - INFO - CEO Agent: Creating revolutionary vision with first-principles thinking...
+2025-03-11 00:06:38,275 - core.revolutionary_omniagent - INFO - Applying first-principles thinking with CEO agent to: Create a revolutionary vision for Solitaire using first-principles thinking: Create a self learning solitaire game
+2025-03-11 00:06:43,329 - httpx - INFO - HTTP Request: POST http://127.0.0.1:11434/api/generate "HTTP/1.1 200 OK"
+2025-03-11 00:08:09,091 - core.revolutionary_omniagent - INFO - CTO Agent: Developing revolutionary technical strategy with first-principles thinking...
+2025-03-11 00:08:09,091 - agents.cto_agent - INFO - Applying first-principles thinking to: Develop revolutionary technical strategy for Solitaire using first-principles thinking
+2025-03-11 00:08:37,609 - httpx - INFO - HTTP Request: POST http://127.0.0.1:11434/api/generate "HTTP/1.1 200 OK"
+2025-03-11 00:08:56,413 - agents.cto_agent - INFO - Generated revolutionary technical strategy using first-principles thinking
+2025-03-11 00:08:56,413 - core.revolutionary_omniagent - INFO - Architect Agent: Creating revolutionary technical design with first-principles thinking...
+2025-03-11 00:08:56,413 - core.revolutionary_omniagent - INFO - Applying first-principles thinking with ARCHITECT agent to: Create revolutionary technical design for Solitaire using first-principles thinking
+2025-03-11 00:09:25,472 - httpx - INFO - HTTP Request: POST http://127.0.0.1:11434/api/generate "HTTP/1.1 200 OK"
+2025-03-11 00:09:39,321 - core.revolutionary_omniagent - INFO - Developer Agent: Planning revolutionary implementation with first-principles thinking...
+2025-03-11 00:09:39,322 - core.revolutionary_omniagent - INFO - Applying first-principles thinking with DEVELOPER agent to: Plan revolutionary implementation for Solitaire using first-principles thinking
+2025-03-11 00:10:10,324 - httpx - INFO - HTTP Request: POST http://127.0.0.1:11434/api/generate "HTTP/1.1 200 OK"
+2025-03-11 00:11:08,495 - core.revolutionary_omniagent - INFO - Filesystem Agent: Creating revolutionary file structure...
+2025-03-11 00:11:08,497 - agents.filesystem_agent - INFO - Applying first-principles thinking to file structure: Create revolutionary file structure for Solitaire using first-principles thinking
+2025-03-11 00:11:08,499 - agents.filesystem_agent - ERROR - Filesystem Agent first-principles processing failed: 'Input to ChatPromptTemplate is missing variables {\'\\n          "directories"\'}.  Expected: [\'\\n          "directories"\', \'context\', \'design\', \'filesystem_decisions\', \'implementation\', \'task\', \'tech_strategy\', \'vision\'] Received: [\'context\', \'vision\', \'tech_strategy\', \'design\', \'implementation\', \'filesystem_decisions\', \'task\']\nNote: if you intended {\n          "directories"} to be part of the string and not a variable, please escape it with double curly braces like: \'{{\n          "directories"}}\'.\nFor troubleshooting, visit: https://python.langchain.com/docs/troubleshooting/errors/INVALID_PROMPT_INPUT '
+2025-03-11 00:11:08,499 - core.revolutionary_omniagent - ERROR - Error creating file structure: 'Input to ChatPromptTemplate is missing variables {\'\\n          "directories"\'}.  Expected: [\'\\n          "directories"\', \'context\', \'design\', \'filesystem_decisions\', \'implementation\', \'task\', \'tech_strategy\', \'vision\'] Received: [\'context\', \'vision\', \'tech_strategy\', \'design\', \'implementation\', \'filesystem_decisions\', \'task\']\nNote: if you intended {\n          "directories"} to be part of the string and not a variable, please escape it with double curly braces like: \'{{\n          "directories"}}\'.\nFor troubleshooting, visit: https://python.langchain.com/docs/troubleshooting/errors/INVALID_PROMPT_INPUT '

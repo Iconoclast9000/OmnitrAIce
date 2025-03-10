@@ -1,0 +1,228 @@
+#!/usr/bin/env python3
+"""
+OmnitrAIce Web UI - Unified Revolutionary Project Generation Interface
+"""
+
+import asyncio
+import os
+import json
+import logging
+import traceback
+from typing import Dict, Any, List
+
+import gradio as gr
+
+# Import core agent system
+from revolutionary_omniagent import UnifiedOmniAgent
+
+class OmnitrAIceWebUI:
+    """
+    Comprehensive Web Interface for OmnitrAIce Project Generation System
+    """
+
+    def __init__(self, model_name: str = "deepseek-r1:1.5b"):
+        """
+        Initialize the Web UI with the UnifiedOmniAgent
+        
+        Args:
+            model_name (str): LLM model to use for project generation
+        """
+        self.logger = self._setup_logger()
+        self.agent = UnifiedOmniAgent(model_name)
+        self.app = None
+
+    def _setup_logger(self) -> logging.Logger:
+        """
+        Set up logging for the Web UI
+        
+        Returns:
+            logging.Logger: Configured logger instance
+        """
+        logger = logging.getLogger("OmnitrAIceWebUI")
+        logger.setLevel(logging.INFO)
+        
+        # Ensure logs directory exists
+        os.makedirs("logs", exist_ok=True)
+        
+        # File Handler
+        file_handler = logging.FileHandler(
+            f"logs/web_ui_{datetime.datetime.now().strftime('%Y%m%d_%H%M%S')}.log"
+        )
+        file_handler.setLevel(logging.INFO)
+        
+        # Console Handler
+        console_handler = logging.StreamHandler()
+        console_handler.setLevel(logging.INFO)
+        
+        # Formatter
+        formatter = logging.Formatter(
+            "%(asctime)s - %(name)s - %(levelname)s - %(message)s"
+        )
+        file_handler.setFormatter(formatter)
+        console_handler.setFormatter(formatter)
+        
+        logger.addHandler(file_handler)
+        logger.addHandler(console_handler)
+        
+        return logger
+
+    def create_ui(self):
+        """
+        Create the Gradio Web Interface for OmnitrAIce
+        """
+        with gr.Blocks(title="OmnitrAIce: Revolutionary Project Generation") as app:
+            # Main Title and Description
+            gr.Markdown("# 🚀 OmnitrAIce: AI-Powered Project Generation")
+            gr.Markdown("## Revolutionary Software Development Framework")
+            
+            # Tabbed Interface
+            with gr.Tabs():
+                # Project Creation Tab
+                with gr.TabItem("Create Project"):
+                    self._create_project_tab()
+                
+                # Agent Customization Tab
+                with gr.TabItem("Agent Customization"):
+                    self._agent_customization_tab()
+                
+                # Template Management Tab
+                with gr.TabItem("Template Management"):
+                    self._template_management_tab()
+            
+            # Status and Output Section
+            with gr.Row():
+                output_status = gr.Textbox(label="Status", interactive=False)
+                output_log = gr.Textbox(label="Detailed Log", interactive=False)
+            
+        self.app = app
+        return app
+
+    def _create_project_tab(self):
+        """
+        Create the Project Creation Tab UI Components
+        """
+        with gr.Row():
+            with gr.Column():
+                project_name = gr.Textbox(label="Project Name")
+                project_desc = gr.Textbox(label="Project Description", lines=4)
+                
+                # Agent Selection
+                with gr.Accordion("Agent Configuration", open=False):
+                    agent_selection = gr.CheckboxGroup(
+                        choices=self.agent.get_available_agents(),
+                        label="Select Agents for Project Generation"
+                    )
+                
+                create_btn = gr.Button("Generate Project", variant="primary")
+            
+            with gr.Column():
+                output_dir = gr.Textbox(label="Output Directory", interactive=False)
+                generated_files = gr.Dataframe(
+                    headers=["File", "Path"],
+                    label="Generated Project Files"
+                )
+
+    def _agent_customization_tab(self):
+        """
+        Create the Agent Customization Tab UI Components
+        """
+        with gr.Row():
+            with gr.Column():
+                agent_type = gr.Dropdown(
+                    choices=self.agent.get_available_agents(),
+                    label="Select Agent Type"
+                )
+                
+                # Dynamic Agent Parameters
+                focus_areas = gr.Dropdown(
+                    multiselect=True,
+                    label="Focus Areas"
+                )
+                strategy_level = gr.Dropdown(
+                    choices=["low", "medium", "high"],
+                    label="Strategy Level"
+                )
+                detail_level = gr.Dropdown(
+                    choices=["low", "medium", "high"],
+                    label="Detail Level"
+                )
+                
+                gr.Markdown("### Revolutionary Parameters")
+                revolution_level = gr.Dropdown(
+                    choices=["moderate", "high", "maximum"],
+                    label="Revolution Level"
+                )
+                constraint_elimination = gr.Dropdown(
+                    choices=["cautious", "moderate", "aggressive"],
+                    label="Constraint Elimination"
+                )
+                
+                update_btn = gr.Button("Update Agent Parameters")
+
+    def _template_management_tab(self):
+        """
+        Create the Template Management Tab UI Components
+        """
+        with gr.Row():
+            with gr.Column():
+                # Custom Template Creation
+                custom_template_name = gr.Textbox(label="Custom Template Name")
+                custom_template_desc = gr.Textbox(label="Template Description", lines=3)
+                save_template_btn = gr.Button("Save Custom Template")
+            
+            with gr.Column():
+                # Existing Templates Management
+                existing_templates = gr.Dropdown(
+                    choices=self.agent.get_custom_templates(),
+                    label="Existing Templates"
+                )
+                load_template_btn = gr.Button("Load Template")
+                delete_template_btn = gr.Button("Delete Template")
+
+    def launch(self, share=False, debug=False):
+        """
+        Launch the Web UI
+        
+        Args:
+            share (bool): Whether to create a public share link
+            debug (bool): Enable debug mode
+        """
+        if not self.app:
+            self.create_ui()
+        
+        try:
+            self.app.launch(share=share, debug=debug)
+        except Exception as e:
+            self.logger.error(f"Error launching Web UI: {e}")
+            traceback.print_exc()
+
+def main():
+    """
+    Main entry point for the OmnitrAIce Web UI
+    """
+    import argparse
+
+    parser = argparse.ArgumentParser(description="OmnitrAIce Web Interface")
+    parser.add_argument(
+        "--model", 
+        default="deepseek-r1:1.5b", 
+        help="Specify the LLM model to use"
+    )
+    parser.add_argument(
+        "--share", 
+        action="store_true", 
+        help="Create a publicly shareable link"
+    )
+    parser.add_argument(
+        "--debug", 
+        action="store_true", 
+        help="Enable debug mode"
+    )
+
+    args = parser.parse_args()
+
+    ui = OmnitrAIceWebUI(model_name=args.model)
+    ui.launch(share=args.share, debug=args.debug)
+
+if __name__ == "__main__":
+    main()

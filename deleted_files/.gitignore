@@ -1,0 +1,38 @@
+# Virtual Environment
+.venv/
+venv/
+env/
+
+# Python Cache
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Project Generated Files
+projects/
+logs/
+
+# IDE Settings
+.vscode/
+.idea/
+
+# Jupyter Notebooks
+.ipynb_checkpoints/
+
+# Environment Files
+.env
+
+# Temp Files
+*.log
+*.swp
+.DS_Store
+
+# Build and Distribution
+build/
+dist/
+*.egg-info/
+
+# Machine Learning Specific
+*.pt
+*.pth
+*.onnx
